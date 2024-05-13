@@ -1,6 +1,5 @@
 package pages;
 
-import com.graphbuilder.struc.LinkedList;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -22,6 +21,15 @@ public class NHSHomePage extends Page {
     By date_posted = By.xpath("(//*[@id='date_posted'])[2]");
     By btn_goback = By.id("back-link");
     By results_grid = By.xpath("//ul[@class='nhsuk-list search-results']");
+    By searchOptionsBtn = By.id("searchOptionsBtn");
+    By txtbox_jobReference = By.id("jobReference");
+    By txtbox_employer = By.id("employer");
+    By select_payrange = By.id("payRange");
+    By trac_job_reference = By.xpath("(//*[@id='trac-job-reference'])[2]");
+    By employer_name = By.id("employer_name");
+    By noresults_found = By.xpath("//h3[@class='nhsuk-heading-m nhsuk-u-margin-bottom-10']");
+
+
 
     /**
      * Launch browser and open home page
@@ -48,7 +56,7 @@ public class NHSHomePage extends Page {
 
     public void clickSearch() {
         driver.findElement(btn_search).click();
-        waitForElementToBeVisible(driver.findElement(results_grid), 20);
+        //waitForElementToBeVisible(driver.findElement(results_grid), 20);
     }
 
     public void sortJobsBy(String sortBy) {
@@ -109,5 +117,45 @@ public class NHSHomePage extends Page {
 
         boolean isDescending = verifyDescendingOrder(dates);
         Assert.assertTrue(isDescending);
+    }
+
+
+    public void select_payrange(String pay_range){
+        Select pay_range_dd=new Select(driver.findElement(select_payrange));
+        pay_range_dd.selectByVisibleText(pay_range);
+
+    }
+
+    public void enterReferenceId(String reference_id){
+        driver.findElement(txtbox_jobReference).sendKeys(reference_id);
+
+    }
+
+    public void enterEmployerName(String employer){
+        driver.findElement(txtbox_employer).sendKeys(employer);
+
+    }
+    public void clickMoreSearchOptionLink() {
+        driver.findElement(searchOptionsBtn).click();
+    }
+
+    public void openJobFromSearchResult() {
+        driver.findElement(results_job_titles).click();
+    }
+
+
+    public String getEmployerName(){
+
+        return driver.findElement(employer_name).getText();
+    }
+
+    public String getReferenceIdOfJob(){
+        scrollDown();
+        return driver.findElement(trac_job_reference).getText();
+    }
+
+
+    public String getNoResultsMsg() {
+        return driver.findElement(noresults_found).getText();
     }
 }
