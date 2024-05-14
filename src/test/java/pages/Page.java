@@ -19,7 +19,6 @@ import java.util.List;
 
 public class Page {
     public static WebDriver driver = null;
-    String app_url = "https://www.jobs.nhs.uk/candidate/search";
 
     public void openBrowser(String browserName) {
         switch (browserName.toLowerCase()) {

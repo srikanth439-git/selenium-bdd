@@ -27,7 +27,7 @@ public class NHSHomePage extends Page {
     By select_payrange = By.id("payRange");
     By trac_job_reference = By.xpath("(//*[@id='trac-job-reference'])[2]");
     By employer_name = By.id("employer_name");
-    By noresults_found = By.xpath("//h3[@class='nhsuk-heading-m nhsuk-u-margin-bottom-10']");
+    By noresults_found = By.xpath("//h3[contains(@class,'nhsuk-heading-m nhsuk-u-margin-bottom')]");
 
 
 
@@ -58,6 +58,13 @@ public class NHSHomePage extends Page {
         driver.findElement(btn_search).click();
         //waitForElementToBeVisible(driver.findElement(results_grid), 20);
     }
+
+    public void verifyResultsGridDisplay()
+    {
+        waitForElementToBeVisible(driver.findElement(results_grid), 20);
+        Assert.assertTrue(driver.findElement(results_grid).isDisplayed());
+    }
+
 
     public void sortJobsBy(String sortBy) {
         Select sort = new Select(driver.findElement(select_sort));

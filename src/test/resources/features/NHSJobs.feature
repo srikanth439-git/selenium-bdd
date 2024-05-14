@@ -31,19 +31,29 @@ Feature: NHS Jobs Website's search Functionality
       | Reference_id              | Employer                                        | Pay_Range|
       | 200-5591794-MA-AA-F       | St George's Healthcare NHS Foundation Trust     | £10,000 to £20,000 |
 
-  Scenario: Job seeker try to search keyword which doesnt match any job
-    When job seeker enters "myjobsabcdefshg" in the keyword search bar
-    And job seeker clicks the search button
-    Then job seeker should see "No result found" message
-
-
-
   Scenario: Job seeker sort the jobs by date posted
     When job seeker enters "Pharmacy Technician" in the keyword search bar
     And job seeker type "London" as the location
     And job seeker clicks the search button
     And job seeker sort jobs by Date posted
     Then verify newest jobs on top
+
+  Scenario:Job seeker try to search jobs directly without any search criteria
+    And job seeker clicks the search button
+    Then job seeker should see search results
+
+  Scenario Outline: Job seeker try to search keyword which doesnt match any job
+    When job seeker enters "<keyword>" in the keyword search bar
+    And job seeker clicks the search button
+    Then job seeker should see "No result found" message
+    Examples:
+    |keyword|
+    |myjobabcdefs|
+    |@#$%^&*     |
+    |123456789010|
+    |myautotest12345$|
+
+
 
 
 

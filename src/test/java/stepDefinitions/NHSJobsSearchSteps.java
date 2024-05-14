@@ -45,6 +45,7 @@ public class NHSJobsSearchSteps {
     }
     @Then("job seeker opens the job shown in search")
     public void job_seeker_opens_the_job_shown_in_search() {
+        homePage.verifyResultsGridDisplay();
         homePage.openJobFromSearchResult();
     }
 
@@ -77,13 +78,19 @@ public class NHSJobsSearchSteps {
 
 
     @Then("job seeker should see a list of job postings related to {string}")
-    public void job_seeker_should_see_job_postings_related_to_keyword_in_location(String keyword) {
+    public void job_seeker_should_see_job_postings_related_to_keyword(String keyword) {
+        homePage.verifyResultsGridDisplay();
         homePage.verifyJobTitles(keyword);
     }
 
     @Then("job seeker should see {string} message")
     public void job_seeker_should_see_message(String expectedMessage) {
         Assert.assertEquals(homePage.getNoResultsMsg(),expectedMessage);
+    }
+
+    @When("job seeker should see search results")
+    public void job_seeker_should_see_search_results() {
+        homePage.verifyResultsGridDisplay();
     }
 
     @After
